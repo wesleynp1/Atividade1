@@ -12,8 +12,8 @@ export default function App() {
 
   function calculator(){
     const splitNumbers = currentNumber.split(' ')
-    const fistNumber = parseFloat(splitNumbers[0])
-    const lastNumber = parseFloat(splitNumbers[2])
+    const fistNumber = parseFloatComPercentual(splitNumbers[0])
+    const lastNumber = parseFloatComPercentual(splitNumbers[2])
     const operator = splitNumbers[1]
 
     // Faz ação referente tecla pressionada
@@ -31,6 +31,12 @@ export default function App() {
         setCurrentNumber((fistNumber / lastNumber).toString())
         return
     }
+  }
+
+  function parseFloatComPercentual(numeroTexto)
+  {
+    let numero = parseFloat(numeroTexto);    
+    return numeroTexto.includes("%") ? numero/100 : numero;
   }
 
   function handleInput(buttonPressed){
