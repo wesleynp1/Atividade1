@@ -12,8 +12,8 @@ export default function App() {
 
   function calculator(){
     const splitNumbers = currentNumber.split(' ')
-    const fistNumber = parseFloatComPercentual(splitNumbers[0])
-    const lastNumber = parseFloatComPercentual(splitNumbers[2])
+    const fistNumber = parseFloatComPercentual(splitNumbers[0].replace("(",""))
+    const lastNumber = parseFloatComPercentual(splitNumbers[2].replace("(",""))
     const operator = splitNumbers[1]
 
     // Faz ação referente tecla pressionada
@@ -58,10 +58,30 @@ export default function App() {
         calculator()
         return
       case '+/-':
-        return
+        trocarSinalDoNumero();
+        return;
     }
-
     setCurrentNumber(currentNumber + buttonPressed)
+  }
+
+  function trocarSinalDoNumero()
+  {
+    let splitNumbers = currentNumber.split(' ');        
+    if(splitNumbers.length==3)
+    {
+      if(!splitNumbers[2].includes("(-"))
+      {splitNumbers[2]="(-"+splitNumbers[2];}
+      else
+      {splitNumbers[2]=splitNumbers[2].replace("(-","");}
+      setCurrentNumber(splitNumbers.join(" "));return;  
+    }
+    if(splitNumbers.length<=2) 
+    {
+      if(!splitNumbers[0].includes("(-"))
+      {setCurrentNumber("(-"+currentNumber);return;}
+      else
+      {setCurrentNumber(currentNumber.replace("(-",""));return;}
+    }
   }
 
 
